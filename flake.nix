@@ -31,7 +31,7 @@
         inline-c-cpp = hself.callCabal2nix "inline-c-cpp" "${inputs.inline-c}/inline-c-cpp" {};
 
         codegen = hself.callCabal2nix "codegen" "${inputs.hasktorch}/codegen" {};
-        libtorch-ffi = self.haskell.lib.compose.appendConfigureFlag "--extra-include-dirs=${self.libtorch}/include/torch/csrc/api/include"
+        libtorch-ffi = self.haskell.lib.compose.appendConfigureFlag "--extra-include-dirs=${self.libtorch.dev}/include/torch/csrc/api/include"
           (hself.callCabal2nix "libtorch-ffi" "${inputs.hasktorch}/libtorch-ffi" {
             torch = self.libtorch;
             c10 = self.libtorch;
