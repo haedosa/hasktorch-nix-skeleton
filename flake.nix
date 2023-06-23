@@ -45,11 +45,10 @@
       };
 
       overlay = self: super: {
-        libtorch = self.libtorch-bin;
-        # self.symlinkJoin {
-        #   inherit (self.libtorch-bin) name;
-        #   paths = [ self.libtorch-bin self.libtorch-bin.dev ];
-        # };
+        libtorch = self.callPackage "${inputs.hasktorch}/nix/libtorch.nix" {
+          cudaSupport = false;
+          device = "cpu";
+        };
         haskell = super.haskell // { packageOverrides = haskellOverlay self; };
       };
 
