@@ -58,7 +58,7 @@
 
       {
 
-        inherit pkgs overlay;
+        inherit pkgs overlay haskellOverlay;
 
         packages.${system}.default = pkgs.haskell.packages.ghc924.hasktorch;
 
