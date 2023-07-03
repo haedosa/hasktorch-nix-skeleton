@@ -1,0 +1,7 @@
+cradle:
+  cabal:
+    - path: "hasktorch-skeleton/src"
+      component: "lib:hasktorch-skeleton"
+
+    - path: "hasktorch-skeleton/exe/Main.hs"
+      component: "hasktorch-skeleton:exe:example"
