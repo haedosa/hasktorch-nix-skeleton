@@ -51,7 +51,7 @@
               hasktorch-skeleton = hself.callCabal2nix "hastorch-skeleton" ./hasktorch-skeleton {};
             };
           in super.haskell // { inherit packageOverrides; };
-        haskellPackages = pkgs.haskell.packages.ghc924;
+        haskellPackages = self.haskell.packages.ghc924;
       };
 
       pkgs = import inputs.nixpkgs { inherit system; overlays = [ overlay ]; };
