@@ -29,3 +29,8 @@ executable classify-mnist
   import: binary-base
   main-is: classify-mnist.hs
   hs-source-dirs: exe
+
+executable uncertainty-mnist
+  import: binary-base
+  main-is: uncertainty-mnist.hs
+  hs-source-dirs: exe
