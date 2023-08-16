@@ -1,0 +1,22 @@
+#+title: Readme
+
+
+* How to prepare the data set to run the example
+
+#+begin_src sh
+
+> datasets/download-mnist.sh
+> mv mnist data
+
+#+end_src
+
+
+
+* How to build and run the examples
+
+#+begin_src sh
+
+> nix build
+> result/bin/classify-mnist
+
+#+end_src

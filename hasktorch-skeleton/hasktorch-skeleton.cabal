@@ -13,7 +13,11 @@ common base
 common binary-base
   import: base
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends: hasktorch-skeleton
+  build-depends:
+      hasktorch-skeleton
+    , safe-exceptions
+    , mtl
+    , pipes
 
 library
   import: base
@@ -21,7 +25,7 @@ library
     HasktorchSkeleton
   hs-source-dirs: src
 
-executable example
+executable classify-mnist
   import: binary-base
-  main-is: Main.hs
+  main-is: classify-mnist.hs
   hs-source-dirs: exe
