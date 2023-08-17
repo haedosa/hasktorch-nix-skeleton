@@ -267,6 +267,6 @@ main = do
 
   let testMnist' = V.MNIST { batchSize = 1, mnistData = testData }
   -- show test images + labels
-  forM_ [0 .. 200] $ displayImage (fromLocalModel net'') <=< getItem testMnist
+  forM_ [0 .. 200] $ displayImage (fromLocalModel net'') <=< getItem testMnist'
 
   putStrLn "Done"
