@@ -26,7 +26,9 @@
               lib.composeExtensions
                 super.haskell.packageOverrides
                 (self.haskell.lib.packageSourceOverrides {
-                  hasktorch-skeleton = ./hasktorch-skeleton; });};})
+                  hasktorch-skeleton = ./hasktorch-skeleton;
+                  hasktorch-examples = ./hasktorch-examples;
+                });};})
       ];
 
       pkgs = import inputs.nixpkgs { inherit system; overlays = [ overlay ]; };
@@ -35,17 +37,31 @@
 
       haskPkgs = __mapAttrs (_: ps: ps.haskellPackages) pkgs.hasktorchPkgs;
 
+      mk-hasktorch-packages = hasktorch-device: rec {
+        hasktorch-and-examples = pkgs.symlinkJoin {
+          name = "hasktorch-and-examples";
+          paths = [
+            hasktorch
+            hasktorch-examples
+            hasktorch-skeleton
+          ];
+        };
+        hasktorch = haskPkgs.${hasktorch-device}.hasktorch;
+        hasktorch-examples = haskPkgs.${hasktorch-device}.hasktorch-examples;
+        hasktorch-skeleton = haskPkgs.${hasktorch-device}.hasktorch-skeleton;
+      };
+
     in
 
       {
 
         inherit pkgs overlay;
 
-        packages.${system} = {
-          default = haskPkgs.${hasktorch-device}.hasktorch-skeleton;
-          hasktorch = haskPkgs.${hasktorch-device}.hasktorch;
-          hasktorch-skeleton = __mapAttrs (_: hpkgs: hpkgs.hasktorch-skeleton) haskPkgs;
-        };
+        packages.${system} = rec {
+          default = (mk-hasktorch-packages "cuda-11").hasktorch-and-examples;
+        }
+        // (mk-hasktorch-packages "cuda-11")
+        // (__mapAttrs (device: _: mk-hasktorch-packages device) haskPkgs);
 
         devShell.${system} =
           let
@@ -55,6 +71,7 @@
 
               packages = p: with p; [
                 hasktorch-skeleton
+                hasktorch-examples
               ];
 
               buildInputs =

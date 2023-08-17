@@ -1,22 +1,41 @@
 #+title: Readme
 
 
-* How to prepare the data set to run the example
+* Haskell-nix-skeleton
+
+
+There are two sets of examples:
+
+1. examples from https://github.com/hasktorch/hasktorch
+2. some examples from https://github.com/masterdezign/10-days-of-grad/tree/master that uses hasktorch
+
+
+
+** How to prepare the MNIST data
 
 #+begin_src sh
-
 > datasets/download-mnist.sh
 > mv mnist data
-
 #+end_src
 
 
 
-* How to build and run the examples
+** How to build
+
+The =hasktorch= library and all examples using =cuda-11= can be built as below.
 
 #+begin_src sh
-
 > nix build
-> result/bin/classify-mnist
+#+end_src
 
+To build the same using =cpu= or =cuda-10=, run
+
+#+begin_src sh
+> nix build .#cpu.hasktorch-and-examples
+#+end_src
+
+or
+
+#+begin_src sh
+> nix build .#cuda-10.hasktorch-and-examples
 #+end_src
