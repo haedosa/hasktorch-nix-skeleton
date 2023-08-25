@@ -14,8 +14,7 @@ There are two sets of examples:
 ** How to prepare the MNIST data
 
 #+begin_src sh
-> datasets/download-mnist.sh
-> mv mnist data
+> hasktorch-examples/datasets/download-mnist.sh
 #+end_src
 
 

@@ -245,7 +245,7 @@ displayImage model (testImg, testLabel) = do
 
 main :: IO ()
 main = do
-  (trainData, testData) <- initMnist "data"
+  (trainData, testData) <- initMnist "hasktorch-examples/datasets/mnist"
   let trainMnist = V.MNIST {batchSize = 256, mnistData = trainData}
       spec = MLPSpec 784 300 50 10
 
