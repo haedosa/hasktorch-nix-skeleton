@@ -1,9 +1,11 @@
 {
   description = "hasktorch-skeleton in Nix";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-
-  inputs.hasktorch-nix.url = "github:asgard-labs/hasktorch-nix";
+  inputs = {
+    haedosa.url = "github:haedosa/flakes";
+    nixpkgs.follows = "haedosa/nixpkgs-23-05";
+    hasktorch.url = "github:haedosa/hasktorch/vanilla-nix";
+  };
 
   outputs = inputs:
 
@@ -18,7 +20,7 @@
       hasktorch-device = "cuda-11"; # There are three variants "cpu" "cuda-10" "cuda-11"
 
       overlay = lib.composeManyExtensions [
-        inputs.hasktorch-nix.overlay
+        inputs.hasktorch.overlay
         (self: super: { haskellPackages = self.haskell.packages.${ghc-name}; })
         (self: super: {
           haskell = super.haskell // {
@@ -77,7 +79,7 @@
               buildInputs =
                 (with hpkgs;
                   [ haskell-language-server
-                    threadscope
+                    # threadscope
                   ]) ++
                 (with pkgs;
                   [
